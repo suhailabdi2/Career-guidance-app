@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Career Guidance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+  </head>
+  <body>
+    <h1>Career Guidance System</h1>
+    
+   
+    
+    <h3>Enter Your Profile Information</h3>
+    <h3>Please Enter values between 0 and 5</h3>
+    <form method="post">
+      <!-- Loop through expected feature columns -->
+      {% for col in ['GPA', 'Extracurricular_Activities', 'Internships', 'Projects', 'Leadership_Positions', 'Field_Specific_Courses', 'Research_Experience', 'Coding_Skills', 'Communication_Skills', 'Problem_Solving_Skills', 'Teamwork_Skills', 'Analytical_Skills', 'Presentation_Skills', 'Networking_Skills', 'Industry_Certifications'] %}
+        <label for="{{ col }}">{{ col }}:</label>
+        <input type="text" id="{{ col }}" name="{{ col }}" placeholder="Enter value"><br><br>
+      {% endfor %}
+      <button type="submit">Predict Career</button>
+    </form>
+
+    {% if prediction %}
+    <h2>Predicted Career: {{ prediction }}</h2>
+  {% endif %}
+    
+    <h3>Knowledge Graph</h3>
+    <p>This graph shows the relationships between fields, careers, and key skills.</p>
+    <button id="toggleGraphBtn" type="button">Show Knowledge Graph</button>
+
+    <div id="graphContainer" style="display: none; margin-top: 20px;">
+      <img src="data:image/png;base64,{{ knowledge_graph_image }}" alt="Knowledge Graph" style="max-width:100%; height:auto;">
+    </div>
+
+    <script>
+      const toggleBtn = document.getElementById('toggleGraphBtn');
+      const graphContainer = document.getElementById('graphContainer');
+
+      toggleBtn.addEventListener('click', function () {
+        if (graphContainer.style.display === 'none') {
+          graphContainer.style.display = 'block';
+          toggleBtn.textContent = 'Hide Knowledge Graph';
+        } else {
+          graphContainer.style.display = 'none';
+          toggleBtn.textContent = 'Show Knowledge Graph';
+        }
+      });
+    </script>
+    
+  </body>
+</html>
